@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">VSGUTULABS</string>
+    <string name="text_logo">Эдуард Цыдыпов</string>
+    <string name="laba1">ЛАБОРАТОРНАЯ РАБОТА №1</string>
+    <string name="laba2">ЛАБОРАТОРНАЯ РАБОТА №2</string>
+    <string name="laba3">ЛАБОРАТОРНАЯ РАБОТА №3</string>
+    <string name="laba4">ЛАБОРАТОРНАЯ РАБОТА №4</string>
+    <string name="laba5">ЛАБОРАТОРНАЯ РАБОТА №5</string>
+    <string name="laba6">ЛАБОРАТОРНАЯ РАБОТА №6</string>
+    <string name="laba7">ЛАБОРАТОРНАЯ РАБОТА №7</string>
+    <string name="laba8">ЛАБОРАТОРНАЯ РАБОТА №8</string>
+    <string name="text_number1">Число 1</string>
+    <string name="text_number2">Число 2</string>
+    <string name="input_number1">0</string>
+    <string name="input_number2">0</string>
+    <string name="text_result">Результат</string>
+    <string name="text_result_number">0</string>
+    <string name="btn_calc">Сумма</string>
+    <string name="btn_plus2">+2</string>
+    <string name="btn_minus2">-2</string>
+    <string name="btn_plus1">+1</string>
+    <string name="btn_minus1">-1</string>
+    <string name="cell"> </string>
+    <string name="button_accessibility_label"> </string>
+</resources>

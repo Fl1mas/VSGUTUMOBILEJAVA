@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/laba1"
+        android:title="@string/laba1"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba2"
+        android:title="@string/laba2"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba3"
+        android:title="@string/laba3"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba4"
+        android:title="@string/laba4"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba5"
+        android:title="@string/laba5"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba6"
+        android:title="@string/laba6"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba7"
+        android:title="@string/laba7"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/laba8"
+        android:title="@string/laba8"
+        app:showAsAction="never"/>
+</menu>
