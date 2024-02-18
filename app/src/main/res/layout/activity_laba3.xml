@@ -16,4 +16,164 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:rowCount="1"
+        app:columnCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/text_result_number"
+            android:layout_width="195dp"
+            android:text="@string/text_result_number"
+            android:textSize="25sp"
+             />
+
+        <TextView
+            android:id="@+id/operator"
+            android:layout_width="195dp"
+            android:text="@string/operator"
+            android:textSize="25sp"
+             />
+
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <EditText
+        android:id="@+id/plaintext"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_text_calc"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:rowCount="4"
+        app:columnCount="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plaintext">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_7"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_8"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_9"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/divide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_operator_divide"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_4"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_5"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_6"
+            android:onClick="onClick"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/multiply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_operator_multiply"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_1"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_2"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_3"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_operator_minus"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/number0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_number_0"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_point"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_operator_plus"
+            android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/equal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calc_operator_equal"
+            android:onClick="onClick"/>
+    </androidx.gridlayout.widget.GridLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
