@@ -3,7 +3,7 @@ package com.example.vsgutulabs;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import java.util.Random;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +19,12 @@ public class laba3 extends AppCompatActivity {
     TextView operationField;
     Double operand = null;  // операнд операции
     String lastOperation = "="; // последняя операция
+
+    //
+
+    private int secretNumber;
+    private int lastUserGuess;
+    private boolean isGuessCloser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,11 @@ public class laba3 extends AppCompatActivity {
         findViewById(R.id.number8).setOnClickListener((view)->onNumberClick("8"));
         findViewById(R.id.number9).setOnClickListener((view)->onNumberClick("9"));
         findViewById(R.id.point).setOnClickListener((view)->onNumberClick(","));
+
+        //
+
+        Random random = new Random();
+        secretNumber = random.nextInt(100);
     }
     // сохранение состояния при повороте телефона
     @Override
@@ -123,6 +134,8 @@ public class laba3 extends AppCompatActivity {
         resultField.setText(operand.toString().replace('.', ','));
         numberField.setText("");
     }
+
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -131,5 +144,40 @@ public class laba3 extends AppCompatActivity {
         if (toolbar != null) {
             toolbar.setTitle("ВСГУТУ ЛАБЫ ПО МП"); // Title для приложения(надпись в самом верху)
         }
+    }
+
+
+    public void checkGuess(int userGuess) {
+        lastUserGuess = userGuess;
+        isGuessCloser = Math.abs(secretNumber - userGuess) < Math.abs(secretNumber - lastUserGuess);
+    }
+
+    public String getResult() {
+        if (isGuessCloser) {
+            return "Теплее";
+        } else {
+            return "Холоднее";
+        }
+    }
+
+    public boolean isEven() {
+        return secretNumber % 2 == 0;
+    }
+
+    public boolean isInRange(int range) {
+        if (range == 0) {
+            return secretNumber <= 49;
+        } else {
+            return secretNumber >= 50;
+        }
+    }
+
+    public boolean isSumLessThanTen() {
+        int sum = 0;
+        String numberStr = String.valueOf(secretNumber);
+        for (int i = 0; i < numberStr.length(); i++) {
+            sum += Character.getNumericValue(numberStr.charAt(i));
+        }
+        return sum < 10;
     }
 }
