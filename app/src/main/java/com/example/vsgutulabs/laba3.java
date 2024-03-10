@@ -3,12 +3,15 @@ package com.example.vsgutulabs;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.Objects;
 import java.util.Random;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -22,9 +25,14 @@ public class laba3 extends AppCompatActivity {
 
     //
 
-    private int secretNumber;
-    private int lastUserGuess;
+    EditText numberField2;
+    TextView title_game;
+    TextView answer_game;
+
+    private Integer secretNumber;
+    private Integer lastUserGuess = 0;
     private boolean isGuessCloser;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +61,13 @@ public class laba3 extends AppCompatActivity {
         findViewById(R.id.point).setOnClickListener((view)->onNumberClick(","));
 
         //
+        numberField2 = findViewById(R.id.plain_number);
+        title_game = findViewById(R.id.title_game);
+        answer_game = findViewById(R.id.text_game_answer);
 
         Random random = new Random();
         secretNumber = random.nextInt(100);
+
     }
     // сохранение состояния при повороте телефона
     @Override
@@ -147,10 +159,10 @@ public class laba3 extends AppCompatActivity {
     }
 
 
-    public void checkGuess(int userGuess) {
-        lastUserGuess = userGuess;
-        isGuessCloser = Math.abs(secretNumber - userGuess) < Math.abs(secretNumber - lastUserGuess);
-    }
+        public void checkGuess(Integer userGuess) {
+            isGuessCloser = Math.abs(secretNumber - userGuess) < Math.abs(secretNumber - lastUserGuess);
+            lastUserGuess = userGuess;
+        }
 
     public String getResult() {
         if (isGuessCloser) {
@@ -159,11 +171,11 @@ public class laba3 extends AppCompatActivity {
             return "Холоднее";
         }
     }
-
+// четное/нечетное
     public boolean isEven() {
         return secretNumber % 2 == 0;
     }
-
+    // диапазон
     public boolean isInRange(int range) {
         if (range == 0) {
             return secretNumber <= 49;
@@ -171,7 +183,7 @@ public class laba3 extends AppCompatActivity {
             return secretNumber >= 50;
         }
     }
-
+    // сумма цифр числа меньше 10
     public boolean isSumLessThanTen() {
         int sum = 0;
         String numberStr = String.valueOf(secretNumber);
@@ -179,5 +191,35 @@ public class laba3 extends AppCompatActivity {
             sum += Character.getNumericValue(numberStr.charAt(i));
         }
         return sum < 10;
+    }
+
+    public void OnClickCheck(View view) {
+        int userGuess;
+        userGuess = Integer.parseInt(numberField2.getText().toString());
+        checkGuess(userGuess);
+        if (Objects.equals(secretNumber, lastUserGuess)){
+            answer_game.setText("Вы угадали!!!");
+        }
+        else{
+            answer_game.setText(getResult());
+        }
+    }
+
+    public void OnClickHint1(View view) {
+        boolean isEven = isEven();
+        Toast.makeText(getApplicationContext(), "Число " + (isEven ? "нечетное" : "четное"), Toast.LENGTH_SHORT).show();
+        findViewById(R.id.btn_hint1).setEnabled(false);
+    }
+
+    public void OnClickHint2(View view) {
+        boolean isInRange = isInRange(0);
+        Toast.makeText(getApplicationContext(), "Число находится в диапозоне " + (isInRange ? "0-49" : "50-99"), Toast.LENGTH_SHORT).show();
+        findViewById(R.id.btn_hint2).setEnabled(false);
+    }
+
+    public void OnClickHint3(View view) {
+        boolean isSumLessThanTen = isSumLessThanTen();
+        Toast.makeText(getApplicationContext(), "Сумма цифр равна " + (isSumLessThanTen ? "Меньше 10" : "Больше 10"), Toast.LENGTH_SHORT).show();
+        findViewById(R.id.btn_hint3).setEnabled(false);
     }
 }

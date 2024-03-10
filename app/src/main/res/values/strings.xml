@@ -42,5 +42,16 @@
     <string name="calc_operator_divide">/</string>
     <string name="calc_operator_equal">=</string>
 
+    <string name="gamerandomnumber">Игра "Отгадай число"</string>
+    <string name="textque1">Четное/Нечетное</string>
+    <string name="textque2">Диапозон 0-49/50-99</string>
+    <string name="textque3">сумма цифр числа \n меньше чем 10 </string>
+    <string name="hint1">Подсказка 1</string>
+    <string name="hint2">Подсказка 2</string>
+    <string name="hint3">Подсказка 3</string>
+    <string name="hide">Скрыто</string>
+
+    <string name="nickname">Никнейм</string>
+    <string name="password">Пароль</string>
 
 </resources>

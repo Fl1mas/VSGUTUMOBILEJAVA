@@ -13,6 +13,9 @@
         android:theme="@style/Theme.VSGUTULABS"
         tools:targetApi="31">
         <activity
+            android:name=".laba4"
+            android:exported="false" />
+        <activity
             android:name=".laba3"
             android:exported="false" />
         <activity
