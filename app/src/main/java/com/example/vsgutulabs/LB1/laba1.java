@@ -1,4 +1,4 @@
-package com.example.vsgutulabs;
+package com.example.vsgutulabs.LB1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.vsgutulabs.R;
 
 public class laba1 extends AppCompatActivity {
 

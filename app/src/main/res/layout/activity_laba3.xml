@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".laba3">
+    tools:context=".LB3.laba3">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

@@ -11,6 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.vsgutulabs.LB1.laba1;
+import com.example.vsgutulabs.LB2.laba2;
+import com.example.vsgutulabs.LB3.laba3;
+import com.example.vsgutulabs.LB4.laba4;
+
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "LIFECYCLE";

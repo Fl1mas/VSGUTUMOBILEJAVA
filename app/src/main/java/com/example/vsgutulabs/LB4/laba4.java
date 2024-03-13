@@ -1,13 +1,22 @@
-package com.example.vsgutulabs;
+package com.example.vsgutulabs.LB4;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+
+import com.example.vsgutulabs.R;
+import com.example.vsgutulabs.LB4.Users;
 
 public class laba4 extends AppCompatActivity {
+
+    EditText Nickname;
+    EditText Password;
 
     private final static String TAG = "LIFECYCLE";
     @Override
@@ -76,5 +85,25 @@ public class laba4 extends AppCompatActivity {
         if (toolbar != null) {
             toolbar.setTitle("ВСГУТУ ЛАБЫ ПО МП"); // Title для приложения(надпись в самом верху)
         }
+    }
+    public void _btnAuth(View view) {
+        Nickname = findViewById(R.id.nickname);
+        Password = findViewById(R.id.password);
+
+        String nickname = Nickname.getText().toString();
+        String password = Password.getText().toString();
+
+        Users users = UsersManager.findUserByCredentials(nickname, password);
+        if (users != null) {
+            Intent intent = new Intent(this, AuthWindow.class);
+            intent.putExtra(Users.class.getSimpleName(), users);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, AuthWindow.class);
+            startActivity(intent);
+        }
+
+
+
     }
 }

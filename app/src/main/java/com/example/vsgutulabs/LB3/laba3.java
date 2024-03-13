@@ -1,4 +1,4 @@
-package com.example.vsgutulabs;
+package com.example.vsgutulabs.LB3;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.vsgutulabs.R;
 
 import org.w3c.dom.Text;
 

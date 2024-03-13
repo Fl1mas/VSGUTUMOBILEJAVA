@@ -1,4 +1,4 @@
-package com.example.vsgutulabs;
+package com.example.vsgutulabs.LB2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.vsgutulabs.R;
 
 import java.util.Arrays;
 

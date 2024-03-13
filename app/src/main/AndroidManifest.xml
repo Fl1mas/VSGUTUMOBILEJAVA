@@ -13,16 +13,19 @@
         android:theme="@style/Theme.VSGUTULABS"
         tools:targetApi="31">
         <activity
-            android:name=".laba4"
+            android:name=".LB4.AuthWindow"
             android:exported="false" />
         <activity
-            android:name=".laba3"
+            android:name=".LB4.laba4"
             android:exported="false" />
         <activity
-            android:name=".laba2"
+            android:name=".LB3.laba3"
+            android:exported="false" />
+        <activity
+            android:name=".LB2.laba2"
             android:exported="true" />
         <activity
-            android:name=".laba1"
+            android:name=".LB1.laba1"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
