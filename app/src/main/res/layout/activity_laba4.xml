@@ -24,7 +24,7 @@
         android:ems="10"
         android:inputType="text"
         android:minHeight="50dp"
-        android:text="@string/nickname"
+        android:hint="@string/nickname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -37,7 +37,7 @@
         android:ems="10"
         android:inputType="text"
         android:minHeight="50dp"
-        android:text="@string/password"
+        android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nickname" />

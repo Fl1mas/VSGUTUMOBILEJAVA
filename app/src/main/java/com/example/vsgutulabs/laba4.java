@@ -9,18 +9,18 @@ import android.util.Log;
 
 public class laba4 extends AppCompatActivity {
 
-    private final static String TAG = "Activity_laba4";
+    private final static String TAG = "LIFECYCLE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laba4);
-        Log.d(TAG, "onCreate");
+        Log.d(TAG, "activity_laba4 onCreate");
 
     }
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart");
+        Log.d(TAG, "activity_laba4 onStart");
 
         // Код для выполнения, когда действие становится видимым пользователю
     }
@@ -28,7 +28,7 @@ public class laba4 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
+        Log.d(TAG, "activity_laba4 onResume");
 
         // Код, который будет выполняться, когда действие начнет взаимодействовать с пользователем
     }
@@ -36,7 +36,7 @@ public class laba4 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause");
+        Log.d(TAG, "activity_laba4 onPause");
 
         // Код для выполнения, когда действие больше не взаимодействует с пользователем
     }
@@ -44,7 +44,7 @@ public class laba4 extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop");
+        Log.d(TAG, "activity_laba4 onStop");
 
         // Код для выполнения, когда действие больше не видно пользователю
     }
@@ -52,20 +52,20 @@ public class laba4 extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
+        Log.d(TAG, "activity_laba4 onDestroy");
 
         // Код очистки здесь
     }
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState){
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "onSaveInstanceState");
+        Log.d(TAG, "activity_laba4 onSaveInstanceState");
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "nRestoreInstanceState");
+        Log.d(TAG, "activity_laba4 onRestoreInstanceState");
     }
 
     @Override
