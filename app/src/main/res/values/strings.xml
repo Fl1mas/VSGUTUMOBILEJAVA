@@ -54,5 +54,9 @@
     <string name="nickname">Никнейм</string>
     <string name="password">Пароль</string>
 
+    <string name="RuRo_startGame">Начать</string>
+    <string name="RuRO_option1">Кол-во игроков:</string>
+    <string name="RuRO_option2">Кол-во пропуска хода:</string>
+    <string name="RuRO_option3">Кол-во выстрелов 1-го игрока:</string>
 
 </resources>

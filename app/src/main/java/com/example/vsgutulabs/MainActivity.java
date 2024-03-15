@@ -15,6 +15,8 @@ import com.example.vsgutulabs.LB1.laba1;
 import com.example.vsgutulabs.LB2.laba2;
 import com.example.vsgutulabs.LB3.laba3;
 import com.example.vsgutulabs.LB4.laba4;
+import com.example.vsgutulabs.LB4.RussianRoulette.RussianRouletteOptions;
+import com.example.vsgutulabs.LB4.RussianRoulette.RussianRouletteGame;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.laba5) {
-            Intent intent = new Intent(this, laba1.class);
+            Intent intent = new Intent(this, RussianRouletteOptions.class);
             startActivity(intent);
             return true;
         }
