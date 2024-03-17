@@ -1,5 +1,6 @@
 package com.example.vsgutulabs.LB4.RussianRoulette;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,13 +8,27 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vsgutulabs.R;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class RussianRouletteGame extends AppCompatActivity {
 
     private final static String TAG = "LIFECYCLE";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +36,48 @@ public class RussianRouletteGame extends AppCompatActivity {
         setContentView(R.layout.activity_russian_roulette_game);
         Log.d(TAG, "RussianRouletteGame onCreate");
 
+        Button shootButton = findViewById(R.id.RuRo_btn_shot);
+        TextView PlayPlayer = findViewById(R.id.RuRo_PlayPlayer);
+
         Intent intent = getIntent();
 
-        String option1 = intent.getStringExtra("option1");
-        String option2 = intent.getStringExtra("option2");
-        String option3 = intent.getStringExtra("option3");
+        String PLAYERS = intent.getStringExtra("num_players");
+        String SKIPS = intent.getStringExtra("num_skips");
+        String RELOADS = intent.getStringExtra("num_reloads");
 
-        TextView option2TextView = findViewById(R.id.option1TextView);
-        option1TextView.setText(option2);
+        int numPlayers = Integer.parseInt(PLAYERS);
+        int numSkips = Integer.parseInt(SKIPS);
+        int numReloads = Integer.parseInt(RELOADS);
+
+        ArrayList<String> players = intent.getStringArrayListExtra("players");
 
 
+        Button skips = findViewById(R.id.RuRo_btn_options2);
+        Button reloads = findViewById(R.id.RuRo_btn_options3);
+        skips.setText("Пропустить ход (" + SKIPS + ")");
+        reloads.setText("Пропустить ход (" + RELOADS + ")");
+
+        TextView ListPlayer = findViewById(R.id.RuRo_ListPlayer);
+        StringBuilder playerList = new StringBuilder();
+        for (int i = 0; i < players.size(); i++){
+            playerList.append((i + 1)).append(". ").append(players.get(i)).append("\n");
+        }
+        ListPlayer.setText(playerList.toString());
+        TextView resultshot = findViewById(R.id.RuRo_resultShot);
+
+
+        while (players.size() < 1){
+            for ( int i = 0; i < players.size() ; i++){
+                PlayPlayer.setText(players.get(i));
+
+
+            }
+        }
     }
+
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -92,4 +138,5 @@ public class RussianRouletteGame extends AppCompatActivity {
             toolbar.setTitle("ВСГУТУ ЛАБЫ ПО МП"); // Title для приложения(надпись в самом верху)
         }
     }
+
 }

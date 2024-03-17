@@ -15,6 +15,9 @@ import com.example.vsgutulabs.LB4.Users;
 import com.example.vsgutulabs.LB4.UsersManager;
 import com.example.vsgutulabs.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RussianRouletteOptions extends AppCompatActivity {
     private final static String TAG = "LIFECYCLE";
 
@@ -98,10 +101,16 @@ public class RussianRouletteOptions extends AppCompatActivity {
         String _options2 = options2_skips.getText().toString();
         String _options3 = options3_shots.getText().toString();
 
+        List<String> players = new ArrayList<>();
+        for (int i = 0; i <  Integer.parseInt(_options1); i++){
+            players.add("Игрок " + (i +1));
+        }
+
         Intent intent = new Intent(this, RussianRouletteGame.class);
-        intent.putExtra("option1", _options1);
-        intent.putExtra("option2", _options2);
-        intent.putExtra("option3", _options3);
+        intent.putStringArrayListExtra("players", (ArrayList<String>) players);
+        intent.putExtra("num_players", _options1);
+        intent.putExtra("num_skips", _options2);
+        intent.putExtra("num_reloads", _options3);
 
         startActivity(intent);
     }

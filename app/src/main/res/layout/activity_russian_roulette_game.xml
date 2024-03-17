@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/RuRo_ListPlayer"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="TextView"
@@ -42,11 +42,13 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RuRo_ListPlayer" />
+
     <Button
         android:id="@+id/RuRo_btn_shot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:onClick="onShootButtonClick"
         android:text="Выстрел"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:onClick="onSkipTurnButtonClick"
         android:text="Пропуск"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:onClick="onReloadButtonClick"
         android:text="Перезарядить"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
