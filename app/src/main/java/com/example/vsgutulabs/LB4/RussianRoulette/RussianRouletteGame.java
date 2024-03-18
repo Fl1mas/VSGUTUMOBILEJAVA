@@ -2,9 +2,11 @@ package com.example.vsgutulabs.LB4.RussianRoulette;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,120 +25,103 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import java.util.Random;
 public class RussianRouletteGame extends AppCompatActivity {
 
     private final static String TAG = "LIFECYCLE";
+    private static final int MAX_PLAYERS = 6;
+    private static final int DEFAULT_SKIPS = 1;
+    private static final int DEFAULT_RELOADS = 1;
 
+    private TextView playerTextView;
+    private Button shotButton;
+    private Button skipButton;
+    private Button reloadButton;
 
+    private int numPlayers;
+    private int skipsPerPlayer;
+    private int reloadsPerPlayer;
 
+    private List<Player> players;
+    private Revolver revolver;
+    private int currentPlayerIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_russian_roulette_game);
-        Log.d(TAG, "RussianRouletteGame onCreate");
 
-        Button shootButton = findViewById(R.id.RuRo_btn_shot);
-        TextView PlayPlayer = findViewById(R.id.RuRo_PlayPlayer);
+        // Initialize UI elements
+        playerTextView = findViewById(R.id.playerTextView);
+        shotButton = findViewById(R.id.shotButton);
+        skipButton = findViewById(R.id.skipButton);
+        reloadButton = findViewById(R.id.reloadButton);
 
         Intent intent = getIntent();
 
-        String PLAYERS = intent.getStringExtra("num_players");
-        String SKIPS = intent.getStringExtra("num_skips");
-        String RELOADS = intent.getStringExtra("num_reloads");
+        numPlayers = intent.getIntExtra("numPlayers", MAX_PLAYERS);
+        skipsPerPlayer = intent.getIntExtra("skipsPerPlayer", DEFAULT_SKIPS);
+        reloadsPerPlayer = intent.getIntExtra("reloadsPerPlayer", DEFAULT_RELOADS);
 
-        int numPlayers = Integer.parseInt(PLAYERS);
-        int numSkips = Integer.parseInt(SKIPS);
-        int numReloads = Integer.parseInt(RELOADS);
-
-        ArrayList<String> players = intent.getStringArrayListExtra("players");
-
-
-        Button skips = findViewById(R.id.RuRo_btn_options2);
-        Button reloads = findViewById(R.id.RuRo_btn_options3);
-        skips.setText("Пропустить ход (" + SKIPS + ")");
-        reloads.setText("Пропустить ход (" + RELOADS + ")");
-
-        TextView ListPlayer = findViewById(R.id.RuRo_ListPlayer);
-        StringBuilder playerList = new StringBuilder();
-        for (int i = 0; i < players.size(); i++){
-            playerList.append((i + 1)).append(". ").append(players.get(i)).append("\n");
+        players = new ArrayList<>();
+        for (int i = 0; i < numPlayers; i++) {
+            players.add(new Player("Player " + (i + 1), skipsPerPlayer, reloadsPerPlayer));
         }
-        ListPlayer.setText(playerList.toString());
-        TextView resultshot = findViewById(R.id.RuRo_resultShot);
 
-
-        while (players.size() < 1){
-            for ( int i = 0; i < players.size() ; i++){
-                PlayPlayer.setText(players.get(i));
-
-
+        shotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (revolver.fire()) {
+                    // Player is out of the game
+                    players.remove(currentPlayerIndex);
+                    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+                    revolver.reload();
+                } else {
+                    // Move to the next chamber
+                    revolver.nextChamber();
+                }
+                updatePlayerTextView();
             }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        StringBuilder playerInfo = new StringBuilder();
+        for (int i = 0; i < players.size(); i++) {
+            if (i > 0) {
+                playerInfo.append("\n");
+            }
+            playerInfo.append(players.get(i).getName() + ": Skips - " + skipsPerPlayer + ", Reloads - " + reloadsPerPlayer);
         }
+
+        playerTextView.setText(playerInfo.toString());
+        Log.d(TAG, playerInfo.toString());
     }
-
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "RussianRouletteGame onStart");
-
-        // Код для выполнения, когда действие становится видимым пользователю
+    private void updatePlayerTextView() {
+        StringBuilder playerInfo = new StringBuilder();
+        playerInfo.append("Current player: " + players.get(currentPlayerIndex).getName());
+        playerInfo.append("\nSkips remaining: " + players.get(currentPlayerIndex).getMissedTurns());
+        playerInfo.append("\nReloads remaining: " + players.get(currentPlayerIndex).getReloads());
+        playerTextView.setText(playerInfo.toString());
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "RussianRouletteGame onResume");
-
-        // Код, который будет выполняться, когда действие начнет взаимодействовать с пользователем
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "RussianRouletteGame onPause");
-
-        // Код для выполнения, когда действие больше не взаимодействует с пользователем
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "RussianRouletteGame onStop");
-
-        // Код для выполнения, когда действие больше не видно пользователю
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "RussianRouletteGame onDestroy");
-
-        // Код очистки здесь
-    }
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState){
-        super.onSaveInstanceState(outState);
-        Log.d(TAG, "RussianRouletteGame onSaveInstanceState");
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "RussianRouletteGame onRestoreInstanceState");
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle("ВСГУТУ ЛАБЫ ПО МП"); // Title для приложения(надпись в самом верху)
-        }
-    }
-
 }
+

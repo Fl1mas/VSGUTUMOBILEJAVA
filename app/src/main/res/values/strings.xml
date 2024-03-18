@@ -59,4 +59,15 @@
     <string name="RuRO_option2">Кол-во пропуска хода:</string>
     <string name="RuRO_option3">Кол-во выстрелов 1-го игрока:</string>
 
+    <string-array name="skip_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item></string-array>
+
+    <string-array name="reload_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 </resources>
