@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_view"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".LB4.RussianRoulette.RussianRouletteGame">
@@ -47,7 +48,7 @@
         android:id="@+id/playercurrent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Игрок 1"
+        android:text="Играет Player 1"
         android:textSize="24sp" />
 
 </LinearLayout>

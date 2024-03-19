@@ -27,6 +27,16 @@ public class Player {
         return name;
     }
 
+    public int getSkips() {
+        return missedTurns;
+    }
+
+    public void useSkip() {
+        if (missedTurns > 0) {
+            missedTurns--;
+        }
+    }
+
     public void setName(String name) {
         this.name = name;
     }

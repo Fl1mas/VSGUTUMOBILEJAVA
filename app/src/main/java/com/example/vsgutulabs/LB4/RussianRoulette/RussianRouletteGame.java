@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class RussianRouletteGame extends AppCompatActivity {
     private static final int DEFAULT_SKIPS = 1;
     private static final int DEFAULT_RELOADS = 1;
 
-    private TextView playercurrent;
+    private TextView playercurrentTextView;
     private TextView playerTextView;
     private Button shotButton;
     private Button skipButton;
@@ -58,7 +59,7 @@ public class RussianRouletteGame extends AppCompatActivity {
         setContentView(R.layout.activity_russian_roulette_game);
 
         // Initialize UI elements
-        playercurrent = findViewById(R.id.playercurrent);
+        playercurrentTextView = findViewById(R.id.playercurrent);
         playerTextView = findViewById(R.id.playerTextView);
         shotButton = findViewById(R.id.shotButton);
         skipButton = findViewById(R.id.skipButton);
@@ -78,57 +79,119 @@ public class RussianRouletteGame extends AppCompatActivity {
             players.add(new Player("Player " + (i + 1), skipsPerPlayer, reloadsPerPlayer));
         }
 
-        Log.d(TAG, String.valueOf(currentPlayerIndex));
+
         shotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shootRevolver();
             }
         });
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                skipTurn();
+            }
+        });
+
+
+        printPlayersInfo();
+
+    }
+    private void shootRevolver() {
+        if (revolver.shoot()) {
+            Player currentPlayer = players.get(currentPlayerIndex);
+
+            // Player got shot
+            playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " погиб!");
+            currentPlayer.setEliminated(true);
+            printPlayersInfo();
+
+            // Update the current player index
+            nextPlayerPlay();
+            revolver.reload();
+            checkWinner();
+        } else {
+            // No bullet in the chamber
+            nextPlayerPlay();
+
+        }
+    }
+    private void skipTurn() {
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        if (currentPlayer.getSkips() > 0) {
+            // Skip the current player's turn
+            playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " пропустил ход.");
+            currentPlayer.useSkip();
+            printPlayersInfo();
+
+            // Update the current player index
+            nextPlayerPlay();
+
+            // Check if the current player has used up all their skips
+            if (currentPlayer.getSkips() == 0) {
+                playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " не может больше пропускать ходы.");
+                skipButton.setEnabled(true);
+            }
+            printPlayersInfo();
+
+        } else {
+            // The current player has used up all their skips
+            playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " не может больше пропускать ходы.");
+        }
+    }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private void printPlayersInfo(){
         StringBuilder playerInfo = new StringBuilder();
         for (int i = 0; i < players.size(); i++) {
             if (i > 0) {
                 playerInfo.append("\n");
             }
-            playerInfo.append(players.get(i).getName() + ": Skips - " + skipsPerPlayer + ", Reloads - " + reloadsPerPlayer);
+            playerInfo.append(players.get(i).getName() + ": Skips - " + skipsPerPlayer + ", Reloads - " + reloadsPerPlayer + ", alive?" + players.get(i).isEliminated());
         }
 
         playerTextView.setText(playerInfo.toString());
         Log.d(TAG, playerInfo.toString());
     }
-    private void shootRevolver() {
-        if (revolver.shoot()) {
-            // Player got shot
-            playercurrent.setText("игрок: " + currentPlayerIndex + " погиб!");
-            players.get(currentPlayerIndex).setEliminated(true);
-//            updateUI();
-
-            if (currentPlayerIndex < players.size() - 1) {
-                currentPlayerIndex++;
-            } else {
-                currentPlayerIndex = 0;
+    private void nextPlayerPlay(){
+        int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        playercurrentTextView.setText("Играет " + players.get(nextPlayerIndex).getName());
+        currentPlayerIndex = nextPlayerIndex;
+    }
+    private void checkWinner(){
+        int numPlayersLeft = 0;
+        for (Player player : players) {
+            if (!player.isEliminated()) {
+                numPlayersLeft++;
             }
-        } else {
-            // No bullet in the chamber
-            Toast.makeText(this, "Click to spin the cylinder!", Toast.LENGTH_SHORT).show();
+        }
+
+        if (numPlayersLeft == 1) {
+            // There is only one player left who has not been eliminated
+            Player winner = players.get(0);
+            for (Player player : players) {
+                if (!player.isEliminated()) {
+                    winner = player;
+                }
+            }
+            playercurrentTextView.setText("\nИгра окончена! Победил игрок " + winner.getName() + "!");
+            shotButton.setEnabled(false);
+            skipButton.setEnabled(false);
+            reloadButton.setEnabled(false);
+            Toast.makeText(this, "Чтобы начать заново нажмите на любое место на экране", Toast.LENGTH_SHORT).show();
+            endGame();
         }
     }
+    @SuppressLint("ClickableViewAccessibility")
+    private void endGame(){
+        LinearLayout rootView = findViewById(R.id.root_view);
+        rootView.setOnTouchListener((view, event) -> {
+            finish();
+            return true;
+        });
+    }
 }
+
 

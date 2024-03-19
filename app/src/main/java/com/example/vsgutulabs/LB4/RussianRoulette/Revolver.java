@@ -31,5 +31,18 @@ public class Revolver {
             return false;
         }
     }
+    public void reload() {
+        // Reset the state of the chambers
+        for (int i = 0; i < NUM_CHAMBERS; i++) {
+            chambers[i] = 0;
+        }
+
+        // Place a bullet in a random chamber
+        int randomChamber = random.nextInt(NUM_CHAMBERS);
+        chambers[randomChamber] = 1;
+
+        // Reset the current chamber to the first chamber
+        currentChamber = 0;
+    }
 }
 
