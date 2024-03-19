@@ -15,6 +15,7 @@
         android:textSize="24sp" />
 
     <!-- Add buttons for each action here -->
+
     <Button
         android:id="@+id/shotButton"
         android:layout_width="wrap_content"
@@ -41,5 +42,12 @@
         android:layout_marginTop="16dp"
         android:onClick="reloads"
         android:text="Перезарядка" />
+
+    <TextView
+        android:id="@+id/playercurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Игрок 1"
+        android:textSize="24sp" />
 
 </LinearLayout>

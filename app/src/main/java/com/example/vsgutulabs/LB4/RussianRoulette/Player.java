@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Player {
     private String name;
+    private boolean eliminated;
     private int missedTurns;
     private int reloads;
 
@@ -11,6 +12,15 @@ public class Player {
         this.name = name;
         this.missedTurns = missedTurns;
         this.reloads = reloads;
+        this.eliminated = false;
+    }
+
+    public void setEliminated(boolean eliminated) {
+        this.eliminated = eliminated;
+    }
+
+    public boolean isEliminated() {
+        return eliminated;
     }
 
     public String getName() {

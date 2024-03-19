@@ -1,5 +1,5 @@
 package com.example.vsgutulabs.LB4.RussianRoulette;
-
+import com.example.vsgutulabs.LB4.RussianRoulette.Revolver;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -39,6 +39,7 @@ public class RussianRouletteGame extends AppCompatActivity {
     private static final int DEFAULT_SKIPS = 1;
     private static final int DEFAULT_RELOADS = 1;
 
+    private TextView playercurrent;
     private TextView playerTextView;
     private Button shotButton;
     private Button skipButton;
@@ -57,10 +58,12 @@ public class RussianRouletteGame extends AppCompatActivity {
         setContentView(R.layout.activity_russian_roulette_game);
 
         // Initialize UI elements
+        playercurrent = findViewById(R.id.playercurrent);
         playerTextView = findViewById(R.id.playerTextView);
         shotButton = findViewById(R.id.shotButton);
         skipButton = findViewById(R.id.skipButton);
         reloadButton = findViewById(R.id.reloadButton);
+
 
         Intent intent = getIntent();
 
@@ -68,24 +71,18 @@ public class RussianRouletteGame extends AppCompatActivity {
         skipsPerPlayer = intent.getIntExtra("skipsPerPlayer", DEFAULT_SKIPS);
         reloadsPerPlayer = intent.getIntExtra("reloadsPerPlayer", DEFAULT_RELOADS);
 
+        revolver = new Revolver();
+
         players = new ArrayList<>();
         for (int i = 0; i < numPlayers; i++) {
             players.add(new Player("Player " + (i + 1), skipsPerPlayer, reloadsPerPlayer));
         }
 
+        Log.d(TAG, String.valueOf(currentPlayerIndex));
         shotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (revolver.fire()) {
-                    // Player is out of the game
-                    players.remove(currentPlayerIndex);
-                    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-                    revolver.reload();
-                } else {
-                    // Move to the next chamber
-                    revolver.nextChamber();
-                }
-                updatePlayerTextView();
+                shootRevolver();
             }
         });
 
@@ -116,12 +113,22 @@ public class RussianRouletteGame extends AppCompatActivity {
         playerTextView.setText(playerInfo.toString());
         Log.d(TAG, playerInfo.toString());
     }
-    private void updatePlayerTextView() {
-        StringBuilder playerInfo = new StringBuilder();
-        playerInfo.append("Current player: " + players.get(currentPlayerIndex).getName());
-        playerInfo.append("\nSkips remaining: " + players.get(currentPlayerIndex).getMissedTurns());
-        playerInfo.append("\nReloads remaining: " + players.get(currentPlayerIndex).getReloads());
-        playerTextView.setText(playerInfo.toString());
+    private void shootRevolver() {
+        if (revolver.shoot()) {
+            // Player got shot
+            playercurrent.setText("игрок: " + currentPlayerIndex + " погиб!");
+            players.get(currentPlayerIndex).setEliminated(true);
+//            updateUI();
+
+            if (currentPlayerIndex < players.size() - 1) {
+                currentPlayerIndex++;
+            } else {
+                currentPlayerIndex = 0;
+            }
+        } else {
+            // No bullet in the chamber
+            Toast.makeText(this, "Click to spin the cylinder!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
