@@ -27,7 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 public class RussianRouletteOptions extends AppCompatActivity {
     private final static String TAG = "LIFECYCLE";
-
+    private final int MAX_PLAYERS =6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

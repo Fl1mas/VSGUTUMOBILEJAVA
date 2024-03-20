@@ -11,12 +11,15 @@ public class Revolver {
     private Random random;
 
     public Revolver() {
+        random = new Random();
         chambers = new int[NUM_CHAMBERS];
         for (int i = 0;i < NUM_CHAMBERS; i++) {
-            chambers[i] = (i == BULLET_CHAMBER) ? 1 : 0;
+            chambers[i] = 0;
         }
+        int randomChamber = random.nextInt(NUM_CHAMBERS);
+        chambers[randomChamber] = 1;
         currentChamber = 0;
-        random = new Random();
+
     }
 
     public boolean shoot() {

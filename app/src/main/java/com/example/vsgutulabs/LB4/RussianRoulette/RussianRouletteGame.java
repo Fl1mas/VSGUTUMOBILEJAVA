@@ -92,29 +92,37 @@ public class RussianRouletteGame extends AppCompatActivity {
                 skipTurn();
             }
         });
+        reloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloads();
+            }
+        });
 
 
         printPlayersInfo();
 
     }
     private void shootRevolver() {
-        if (revolver.shoot()) {
-            Player currentPlayer = players.get(currentPlayerIndex);
+        Player currentPlayer = players.get(currentPlayerIndex);
+            if (revolver.shoot()) {
+                // Player got shot
+                playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " погиб!");
+                currentPlayer.setEliminated(true);
+                printPlayersInfo();
 
-            // Player got shot
-            playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " погиб!");
-            currentPlayer.setEliminated(true);
-            printPlayersInfo();
+                // Update the current player index
+                nextPlayerPlay();
+                revolver.reload();
+                checkWinner();
+            } else {
+                // No bullet in the chamber
+                nextPlayerPlay();
 
-            // Update the current player index
-            nextPlayerPlay();
-            revolver.reload();
-            checkWinner();
-        } else {
-            // No bullet in the chamber
-            nextPlayerPlay();
+            }
 
-        }
+
+
     }
     private void skipTurn() {
         Player currentPlayer = players.get(currentPlayerIndex);
@@ -122,6 +130,7 @@ public class RussianRouletteGame extends AppCompatActivity {
         if (currentPlayer.getSkips() > 0) {
             // Skip the current player's turn
             playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " пропустил ход.");
+
             currentPlayer.useSkip();
             printPlayersInfo();
 
@@ -130,15 +139,41 @@ public class RussianRouletteGame extends AppCompatActivity {
 
             // Check if the current player has used up all their skips
             if (currentPlayer.getSkips() == 0) {
-                playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " не может больше пропускать ходы.");
+                //Toast.makeText(this, "Игрок " + currentPlayer.getName() + " не может больше пропускать ходы.", Toast.LENGTH_SHORT).show();
                 skipButton.setEnabled(true);
             }
             printPlayersInfo();
 
         } else {
             // The current player has used up all their skips
-            playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " не может больше пропускать ходы.");
+            Toast.makeText(this, "Игрок " + currentPlayer.getName() + " не может больше пропускать ходы.", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void reloads(){
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        if (currentPlayer.getSkips() > 0) {
+            // Skip the current player's turn
+            playercurrentTextView.setText("Игрок " + currentPlayer.getName() + " перезарядился.");
+
+            currentPlayer.useReload();
+            printPlayersInfo();
+
+            // Update the current player index
+            revolver.reload();
+
+            // Check if the current player has used up all their skips
+            if (currentPlayer.getSkips() == 0) {
+                Toast.makeText(this, "Игрок " + currentPlayer.getName() + " не может больше перезаряжаться.", Toast.LENGTH_SHORT).show();
+                reloadButton.setEnabled(true);
+            }
+            printPlayersInfo();
+
+        } else {
+            // The current player has used up all their skips
+            Toast.makeText(this, "Игрок " + currentPlayer.getName() + " не может больше перезаряжаться.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -149,17 +184,25 @@ public class RussianRouletteGame extends AppCompatActivity {
             if (i > 0) {
                 playerInfo.append("\n");
             }
-            playerInfo.append(players.get(i).getName() + ": Skips - " + skipsPerPlayer + ", Reloads - " + reloadsPerPlayer + ", alive?" + players.get(i).isEliminated());
+            playerInfo.append(players.get(i).getName() + ": Skips - " + players.get(i).getMissedTurns() + "," + " Reloads - "
+                    + players.get(i).getReloads() + ", No Alive? - " + players.get(i).isEliminated());
         }
 
         playerTextView.setText(playerInfo.toString());
         Log.d(TAG, playerInfo.toString());
     }
     private void nextPlayerPlay(){
-        int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
-        playercurrentTextView.setText("Играет " + players.get(nextPlayerIndex).getName());
-        currentPlayerIndex = nextPlayerIndex;
+        do {
+            int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
+            currentPlayerIndex = nextPlayerIndex;
+        } while (players.get(currentPlayerIndex).isEliminated());
+
+        playercurrentTextView.setText("Играет " + players.get(currentPlayerIndex).getName());
     }
+//        int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
+//        playercurrentTextView.setText("Играет " + players.get(nextPlayerIndex).getName());
+//        currentPlayerIndex = nextPlayerIndex;
+//    }
     private void checkWinner(){
         int numPlayersLeft = 0;
         for (Player player : players) {

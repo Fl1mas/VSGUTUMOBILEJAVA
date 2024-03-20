@@ -36,6 +36,11 @@ public class Player {
             missedTurns--;
         }
     }
+    public void useReload(){
+        if (reloads > 0){
+            reloads--;
+        }
+    }
 
     public void setName(String name) {
         this.name = name;
