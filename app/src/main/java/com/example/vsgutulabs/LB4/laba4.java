@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.vsgutulabs.LB4.RussianRoulette.RussianRouletteOptions;
 import com.example.vsgutulabs.R;
 import com.example.vsgutulabs.LB4.Users;
 
@@ -105,5 +106,10 @@ public class laba4 extends AppCompatActivity {
 
 
 
+    }
+
+    public void _btnRUROGame(View view) {
+        Intent intent = new Intent(this, RussianRouletteOptions.class);
+        startActivity(intent);
     }
 }

@@ -62,7 +62,8 @@
     <string-array name="skip_options">
         <item>1</item>
         <item>2</item>
-        <item>3</item></string-array>
+        <item>3</item>
+    </string-array>
 
     <string-array name="reload_options">
         <item>1</item>
