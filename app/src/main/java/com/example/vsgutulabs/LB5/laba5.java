@@ -5,11 +5,17 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.vsgutulabs.R;
 
 public class laba5 extends AppCompatActivity {
     private final static String TAG = "LIFECYCLE";
+
+    TextView print;
+    EditText name;
+    EditText secondname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
