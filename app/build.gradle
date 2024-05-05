@@ -6,6 +6,7 @@ android {
     namespace 'com.example.vsgutulabs'
     compileSdk 34
 
+
     defaultConfig {
         applicationId "com.example.vsgutulabs"
         minSdk 24

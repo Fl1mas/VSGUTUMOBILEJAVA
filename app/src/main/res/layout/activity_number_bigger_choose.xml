@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".LB5.NumberBigger.NumberBiggerChoose">
 
+    <TextView
+        android:id="@+id/currentplayerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Игрок"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="0dp"
+        android:layout_height="197dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentplayerTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

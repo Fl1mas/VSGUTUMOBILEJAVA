@@ -1,5 +1,9 @@
 package com.example.vsgutulabs.LB5;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +15,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.vsgutulabs.LB4.RussianRoulette.RussianRouletteOptions;
+import com.example.vsgutulabs.LB5.NumberBigger.NumberBiggerOptions;
 import com.example.vsgutulabs.R;
 
 public class laba5 extends AppCompatActivity {
@@ -45,6 +51,8 @@ public class laba5 extends AppCompatActivity {
             name.setText(savedInstanceState.getString(NAME_KEY));
             secondname.setText(savedInstanceState.getString(NAMESECOND_KEY));
         }
+
+
     }
     public void _btn_lb5_Auth(View view) {
         String Name = name.getText().toString();
@@ -53,26 +61,43 @@ public class laba5 extends AppCompatActivity {
         Intent intent = new Intent(this, lb5_auth_window.class);
         intent.putExtra(NAME_KEY, Name);
         intent.putExtra(NAMESECOND_KEY, SecondName);
-        startActivityForResult(intent, REQUEST_ACCESS_TYPE);
+        mStartForResult.launch(intent);
         Log.d(TAG, "activity_laba5 отправил данные во 2-ую активити");
 
 
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "activity_laba5 получил данные");
-        if (requestCode == REQUEST_ACCESS_TYPE){
-            if (resultCode == RESULT_OK){
-                String accessMessage = data.getStringExtra(ACCESS_MESSAGE);
-                print.setText(accessMessage);
-
-            } else {
-                print.setText("ошибка доступа");
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Log.d(TAG, "activity_laba5 получил данные");
+//        if (requestCode == REQUEST_ACCESS_TYPE){
+//            if (resultCode == RESULT_OK){
+//                String accessMessage = data.getStringExtra(ACCESS_MESSAGE);
+//                print.setText(accessMessage);
+//
+//            } else {
+//                print.setText("ошибка доступа");
+//            }
+//
+//        }
+//    }
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK){
+                        Intent intent = result.getData();
+                        String accessMessage =
+                                intent.getStringExtra(ACCESS_MESSAGE);
+                        print.setText(accessMessage);
+                    } else
+                        print.setText("Ошибка доступа");
+                }
             }
 
-        }
-    }
+    );
+
 
 
     @Override
@@ -93,5 +118,10 @@ public class laba5 extends AppCompatActivity {
         name.setText(savedInstanceState.getString(NAME_KEY));
         secondname.setText(savedInstanceState.getString(NAMESECOND_KEY));
         Log.d(TAG, "activity_laba5 onRestoreInstanceState finish");
+    }
+
+    public void _btnNBGame(View view) {
+        Intent intent = new Intent(this, NumberBiggerOptions.class);
+        startActivity(intent);
     }
 }

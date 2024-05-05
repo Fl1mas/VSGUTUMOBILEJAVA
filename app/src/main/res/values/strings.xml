@@ -71,4 +71,5 @@
         <item>3</item>
     </string-array>
 
+    <string name="number_button_name">Игра "Чье больше"</string>
 </resources>
