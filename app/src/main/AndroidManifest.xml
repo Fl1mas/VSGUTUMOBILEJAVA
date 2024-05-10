@@ -13,6 +13,13 @@
         android:theme="@style/Theme.VSGUTULABS"
         tools:targetApi="31">
         <activity
+            android:name=".LB8.MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".LB8.ProductDetailsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".LB5.NumberBigger.NumberBiggerChoose"
             android:exported="false" />
         <activity
