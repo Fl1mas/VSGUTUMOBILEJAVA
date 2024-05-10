@@ -13,7 +13,7 @@ public class Player implements Serializable {
     private int pickcard;
     private int score;
 
-    public Player(String name) {
+    public Player(String name, List<Player> existingPlayers) {
         this.name = name;
         this.cards = new ArrayList<>();
         this.pickcard = 0;
@@ -21,8 +21,19 @@ public class Player implements Serializable {
         Set<Integer> uniqueCards = new HashSet<>();
         Random random = new Random();
         while (uniqueCards.size() < 5) {
-            uniqueCards.add(random.nextInt(20) + 1);
+            int card = random.nextInt(20) + 1;
+            boolean isUnique = true;
+            for (Player existingPlayer : existingPlayers) {
+                if (existingPlayer.cards.contains(card)) {
+                    isUnique = false;
+                    break;
+                }
+            }
+            if (isUnique) {
+                uniqueCards.add(card);
+            }
         }
+
         this.cards.addAll(uniqueCards);
     }
 

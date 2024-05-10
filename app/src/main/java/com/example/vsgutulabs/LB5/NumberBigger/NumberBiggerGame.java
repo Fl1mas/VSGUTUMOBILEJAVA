@@ -49,7 +49,7 @@ public class NumberBiggerGame extends AppCompatActivity {
 
         players = new ArrayList<>();
         for (int i = 0; i < numPlayers; i++) {
-            players.add(new Player("Player " + (i + 1)));
+            players.add(new Player("Player " + (i + 1), players));
         }
         for (Player player : players) {
             System.out.println("Player name: " + player.getName());
@@ -103,6 +103,30 @@ public class NumberBiggerGame extends AppCompatActivity {
                 // Game over, do something here
                 return;
             }
+        }
+        boolean allPlayersOutOfCards = true;
+        for (Player player : players) {
+            if (!player.getCards().isEmpty()) {
+                allPlayersOutOfCards = false;
+                break;
+            }
+        }
+
+        if (allPlayersOutOfCards) {
+            // Calculate the score of each player
+            int maxScore = 0;
+            Player winner = null;
+            for (Player player : players) {
+                int score = player.getScore();
+                if (score > maxScore) {
+                    maxScore = score;
+                    winner = player;
+                }
+            }
+
+            // Declare the winner
+            infoscoreTextView.setText("Игрок " + winner.getName() + " выиграл с наибольшим количеством очков!");
+            // Game over, do something here
         }
     }
     private void nextPlayerPlay(){
