@@ -42,7 +42,7 @@ public class NumberBiggerChoose extends AppCompatActivity {
         currentPlayerTextView.setText(currentPlayerName + " " + (currentPlayerIndex + 1));
 
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < currentPlayer.getCards().size(); i++) {
             for (int j = 0; j < currentPlayer.getCards().size(); j++) {
                 int card = currentPlayer.getCards().get(j);
                 Button cardButton = new Button(this);
@@ -56,6 +56,8 @@ public class NumberBiggerChoose extends AppCompatActivity {
                     int pickcardValue = Integer.parseInt(numbercard);
 
                     currentPlayer.setPickcard(pickcardValue);
+
+                    currentPlayer.removeCard(pickcardValue);
 
                     players.set(currentPlayerIndex, currentPlayer);
                     for (Player player : players) {

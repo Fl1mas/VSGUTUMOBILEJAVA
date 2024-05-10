@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/playercurrent" />
 
     <TextView
-        android:id="@+id/cards"
+        android:id="@+id/infoscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"

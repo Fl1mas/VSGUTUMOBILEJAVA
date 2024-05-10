@@ -11,11 +11,13 @@ public class Player implements Serializable {
     private String name;
     private List<Integer> cards;
     private int pickcard;
+    private int score;
 
     public Player(String name) {
         this.name = name;
         this.cards = new ArrayList<>();
         this.pickcard = 0;
+        this.score = 0;
         Set<Integer> uniqueCards = new HashSet<>();
         Random random = new Random();
         while (uniqueCards.size() < 5) {
@@ -38,5 +40,12 @@ public class Player implements Serializable {
 
     public void setPickcard(int pickcard) {
         this.pickcard = pickcard;
+    }
+
+    public int getScore(){return score;}
+    public void setScore(int score){this.score = score;}
+
+    public void removeCard(int card) {
+        cards.remove(Integer.valueOf(card));
     }
 }

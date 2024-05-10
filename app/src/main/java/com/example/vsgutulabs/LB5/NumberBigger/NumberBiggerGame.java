@@ -25,12 +25,13 @@ public class NumberBiggerGame extends AppCompatActivity {
 
     private TextView playerTextView;
     private TextView playercurrentTextView;
-    private TextView cardsmoveTextView;
+    private TextView infoscoreTextView;
 
     private Button choiceCardsButton;
     private List<Player>  players;
 
     private int currentPlayerIndex = 0;
+    private boolean allPlayersHaveChosen = false;
 
     static final String PLAYERS_KEY = "PLAYERS";
     static final String ACCESS_MESSAGE = "ACCES";
@@ -38,7 +39,7 @@ public class NumberBiggerGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_bigger_game);
-        cardsmoveTextView = findViewById(R.id.cards);
+        infoscoreTextView = findViewById(R.id.infoscore);
         playerTextView = findViewById(R.id.playerTextView);
         playercurrentTextView = findViewById(R.id.playercurrent);
         choiceCardsButton = findViewById(R.id.choiceCardsButton);
@@ -58,8 +59,10 @@ public class NumberBiggerGame extends AppCompatActivity {
         choiceCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 chooseCards();
                 nextPlayerPlay();
+                printPlayersInfo();
 
             }
         });
@@ -72,10 +75,43 @@ public class NumberBiggerGame extends AppCompatActivity {
         intent.putExtra("players", (Serializable) players);
         mStartForResult.launch(intent);
     }
+    private void whoHaveBigCard(){
+        if (allPlayersHaveChosen) {
+            Player playerWithHighestCard = getPlayerWithHighestCard(players);
+            if (playerWithHighestCard != null) {
+                playerWithHighestCard.setScore(playerWithHighestCard.getScore());
+                infoscoreTextView.setText("Игрок " + playerWithHighestCard.getName() + " получает одно очко ");
+                checkForWinner();
+            } else {
+                System.out.println("No players have picked a card.");
+            }
+            resetPlayerCards();
+            allPlayersHaveChosen = false;
+        }
+
+    }
+
+    private void resetPlayerCards() {
+        for (Player player : players) {
+            player.setPickcard(0);
+        }
+    }
+    private void checkForWinner() {
+        for (Player player : players) {
+            if (player.getScore() >= 5) {
+                infoscoreTextView.setText("Игрок " + player.getName() + " выиграл!");
+                // Game over, do something here
+                return;
+            }
+        }
+    }
     private void nextPlayerPlay(){
         int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
         playercurrentTextView.setText("Играет " + players.get(nextPlayerIndex).getName());
         currentPlayerIndex = nextPlayerIndex;
+        if (nextPlayerIndex == 0) {
+            allPlayersHaveChosen = true;
+        }
     }
 
     private void printPlayersInfo(){
@@ -84,14 +120,31 @@ public class NumberBiggerGame extends AppCompatActivity {
             if (i > 0) {
                 playerInfo.append("\n");
             }
-            playerInfo.append(players.get(i).getName() + ": карточки - " + players.get(i).getCards() + players.get(i).getPickcard());
+            playerInfo.append(players.get(i).getName()
+                    + ": карточки - " + players.get(i).getCards()
+                    + players.get(i).getPickcard()
+                    + " Очков:" + players.get(i).getScore());
         }
 
         playerTextView.setText(playerInfo.toString());
         Log.d(TAG, playerInfo.toString());
     }
-    public void assignCardValue(Player player, int cardValue) {
-        player.setPickcard(cardValue);
+
+    public Player getPlayerWithHighestCard(List<Player> players) {
+        Player playerWithHighestCard = null;
+        int highestCard = 0;
+        for (Player player : players) {
+            int currentCard = player.getPickcard();
+            if (currentCard > highestCard) {
+                highestCard = currentCard;
+                playerWithHighestCard = player;
+            }
+
+        }
+        if (playerWithHighestCard != null) {
+            playerWithHighestCard.setScore(playerWithHighestCard.getScore() + 1);
+        }
+        return playerWithHighestCard;
     }
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -101,12 +154,13 @@ public class NumberBiggerGame extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         players = (List<Player>) data.getSerializableExtra("players"); // Update the players field
+
+                        whoHaveBigCard();
                         printPlayersInfo();
-                        // do something with the updated list of players
                     } else
                         System.out.println("Ошибка доступа");
                 }
             }
     );
-
+    // реализуй удаление выбранной карточки
 }
