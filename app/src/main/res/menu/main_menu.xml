@@ -32,4 +32,8 @@
     <item android:id="@+id/laba8"
         android:title="@string/laba8"
         app:showAsAction="never"/>
+
+    <item android:id="@+id/laba9"
+        android:title="@string/laba9"
+        app:showAsAction="never"/>
 </menu>

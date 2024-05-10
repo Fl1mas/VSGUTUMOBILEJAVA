@@ -18,6 +18,12 @@
         <activity
             android:name=".LB8.ProductDetailsActivity"
             android:exported="false" />
+        <activity
+            android:name=".LB9.NoteDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LB9.NotesListActivity"
+            android:exported="false" />
 
         <activity
             android:name=".LB5.NumberBigger.NumberBiggerChoose"

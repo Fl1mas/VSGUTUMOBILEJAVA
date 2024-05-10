@@ -9,6 +9,7 @@
     <string name="laba6">ЛАБОРАТОРНАЯ РАБОТА №6</string>
     <string name="laba7">ЛАБОРАТОРНАЯ РАБОТА №7</string>
     <string name="laba8">ЛАБОРАТОРНАЯ РАБОТА №8</string>
+    <string name="laba9">ЛАБОРАТОРНАЯ РАБОТА №9</string>
     <string name="text_number1">Число 1</string>
     <string name="text_number2">Число 2</string>
     <string name="input_number1">0</string>
@@ -72,4 +73,10 @@
     </string-array>
 
     <string name="number_button_name">Игра "Чье больше"</string>
+    <string-array name="priority_array">
+        <item>Низкий</item>
+        <item>Средний</item>
+        <item>Высокий</item>
+    </string-array>
+
 </resources>
